@@ -22,13 +22,15 @@ public class RelationTestCase {
 
     @Deployment
     public static JavaArchive deploy() {
-	return Deployments.relation()
+	final JavaArchive archive= Deployments.relation()
 		.addPackage(RelationTestCase.class.getPackage())
 		.addAsManifestResource(
 			new StringAsset(
 				Deployments.persistence().exportAsString()
 			), "persistence.xml")
 		.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+	System.out.println(archive.toString(true));
+	return archive;
     }
 
     private static final String SOURCE_ID = "11";
